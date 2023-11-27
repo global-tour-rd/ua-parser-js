@@ -219,8 +219,8 @@
         "desc": "Desktop (IE11 with Tablet string)",
         "ua": "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; Tablet PC 2.0; GWX:MANAGED; rv:11.0) like Gecko",
         "expect": {
-            "vendor": "undefined",
-            "model": "undefined",
+            "vendor": "Microsoft",
+            "model": "Windows",
             "type": "undefined"
         }
     },
@@ -3338,8 +3338,8 @@
         "desc": "Issue #454",
         "ua": "Mosamzilla/5.0 (Windows; U; Win98; en-US; rv:1.7.5) Gecko/20050603 Netscape/8.0.2",
         "expect": {
-            "vendor": "undefined",
-            "model": "undefined",
+            "vendor": "Microsoft",
+            "model": "Windows",
             "type": "undefined"
         }
     },
