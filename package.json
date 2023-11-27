@@ -196,7 +196,6 @@
     "src"
   ],
   "scripts": {
-    "prepare": "npm run build",
     "build": "./script/build-dist.sh && ./script/build-module.js",
     "build+test": "npm run build && npm run test",
     "fuzz": "jazzer ./test/jazzer-fuzz-test.js --sync",
