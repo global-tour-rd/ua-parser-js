@@ -3,18 +3,18 @@
    Copyright © 2012-2023 Faisal Salman <f@faisalman.com>
    AGPLv3 License *//*
    Detect Browser, Engine, OS, CPU, and Device type/model from User-Agent data.
-   Supports browser & node.js environment. 
+   Supports browser & node.js environment.
    Demo   : https://faisalman.github.io/ua-parser-js
    Source : https://github.com/faisalman/ua-parser-js */
 /////////////////////////////////////////////////////////////////////////////////
 
-/* jshint esversion: 3 */ 
+/* jshint esversion: 3 */
 /* globals window */
 
 (function (window, undefined) {
 
     'use strict';
-    
+
     //////////////
     // Constants
     /////////////
@@ -87,13 +87,13 @@
         FACEBOOK    = 'Facebook',
         SOGOU       = 'Sogou',
         WINDOWS     = 'Windows';
-   
+
     var isWindow            = typeof window !== UNDEF_TYPE,
-        NAVIGATOR           = (isWindow && window.navigator) ? 
-                                window.navigator : 
+        NAVIGATOR           = (isWindow && window.navigator) ?
+                                window.navigator :
                                 undefined,
-        NAVIGATOR_UADATA    = (NAVIGATOR && NAVIGATOR.userAgentData) ? 
-                                NAVIGATOR.userAgentData : 
+        NAVIGATOR_UADATA    = (NAVIGATOR && NAVIGATOR.userAgentData) ?
+                                NAVIGATOR.userAgentData :
                                 undefined;
 
     ///////////
@@ -166,7 +166,7 @@
             return isString(str) ? str.replace(pattern, EMPTY) : str;
         },
         stripQuotes = function (str) {
-            return strip(/\\?\"/g, str); 
+            return strip(/\\?\"/g, str);
         },
         trim = function (str, len) {
             if (isString(str)) {
@@ -268,7 +268,7 @@
             '10'        : ['NT 6.4', 'NT 10.0'],
             'RT'        : 'ARM'
         },
-        
+
         formFactorMap = {
             'embedded'  : 'Automotive',
             'mobile'    : 'Mobile',
@@ -433,7 +433,7 @@
             /(links) \(([\w\.]+)/i,                                             // Links
             /panasonic;(viera)/i                                                // Panasonic Viera
             ], [NAME, VERSION], [
-            
+
             /(cobalt)\/([\w\.]+)/i                                              // Cobalt
             ], [NAME, [VERSION, /[^\d\.]+./, EMPTY]]
         ],
@@ -612,7 +612,7 @@
             /droid.+; (m[1-5] note) bui/i,
             /\bmz-([-\w]{2,})/i
             ], [MODEL, [VENDOR, 'Meizu'], [TYPE, MOBILE]], [
-                
+
             // Ulefone
             /; ((?:power )?armor(?:[\w ]{0,8}))(?: bui|\))/i
             ], [MODEL, [VENDOR, 'Ulefone'], [TYPE, MOBILE]], [
@@ -731,7 +731,9 @@
             /(phone|mobile(?:[;\/]| [ \w\/\.]*safari)|pda(?=.+windows ce))/i    // Unidentifiable Mobile
             ], [[TYPE, MOBILE]], [
             /(android[-\w\. ]{0,9});.+buil/i                                    // Generic Android Device
-            ], [MODEL, [VENDOR, 'Generic']]
+            ], [MODEL, [VENDOR, 'Generic']], [
+            /(windows)/i
+            ], [MODEL, [VENDOR, MICROSOFT]]
         ],
 
         engine : [[
@@ -928,7 +930,7 @@
         }
 
         if (!NAVIGATOR_UADATA) {
-            IData.prototype.then = function (cb) { 
+            IData.prototype.then = function (cb) {
                 var that = this;
                 var IDataResolve = function () {
                     for (var prop in that) {
@@ -1050,7 +1052,7 @@
         this.parseCH = function () {
             var uaCH = this.uaCH,
                 rgxMap = this.rgxMap;
-    
+
             switch (this.itemType) {
                 case UA_BROWSER:
                     var brands = uaCH[FULLVERLIST] || uaCH[BRANDS];
@@ -1136,7 +1138,7 @@
         if (typeof ua === OBJ_TYPE) {
             if (isExtensions(ua)) {
                 if (typeof extensions === OBJ_TYPE) {
-                    headers = extensions;               // case UAParser(extensions, headers)           
+                    headers = extensions;               // case UAParser(extensions, headers)
                 }
                 extensions = ua;                        // case UAParser(extensions)
             } else {
@@ -1148,7 +1150,7 @@
             headers = extensions;                       // case UAParser(ua, headers)
             extensions = undefined;
         }
-        
+
         if (!(this instanceof UAParser)) {
             return new UAParser(ua, extensions, headers).getResult();
         }
@@ -1159,8 +1161,8 @@
                                     EMPTY)),                                                // empty string
 
             httpUACH = new UACHData(headers, true),
-            regexMap = extensions ? 
-                        extend(defaultRegexes, extensions) : 
+            regexMap = extensions ?
+                        extend(defaultRegexes, extensions) :
                         defaultRegexes,
 
             createItemFunc = function (itemType) {
@@ -1183,7 +1185,7 @@
                     };
                 }
             };
-            
+
         // public methods
         setProps.call(this, [
             ['getBrowser', createItemFunc(UA_BROWSER)],
